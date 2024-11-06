@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Enfants Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous"/>
+</head>
+<body id="top" class="custom-bg">
+<div class="container custom-cont my-4">
+    <h1 class="text-center display-1">Enfants</h1>
+    <hr/>
+    <form th:action="@{/enfants}" method="get" class="row g-3 d-flex justify-content-between">
+
+        <!-- Champs de recherche sur nom -->
+        <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-center">
+            <div class="col-2">
+                <label for="nomToSearch" class="form-label label-nowrap me-2">Nom :</label>
+            </div>
+            <div class="col-9 offset-1 offset-md-0">
+                <input id="nomToSearch" type="text" name="nomToSearch" class="form-control"/>
+            </div>
+        </div>
+
+        <!-- Champs de recherche sur prenom -->
+        <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-center">
+            <div class="col-3">
+                <label for="prenomToSearch" class="form-label label-nowrap me-2">Prenom :</label>
+            </div>
+            <div class="col-9">
+                <input id="prenomToSearch" type="text" name="prenomToSearch" class="form-control"/>
+            </div>
+        </div>
+
+        <!-- Soumission recherche -->
+        <div class="col-lg-4 d-flex align-items-center">
+            <button type="submit" class="btn btn-secondary w-100">Chercher</button>
+        </div>
+    </form>
+
+    <!--        Bouton ajout enfant-->
+    <div class="col-12 mt-3">
+        <a th:href="@{/showNewEnfantForm}" class="btn btn-lg btn-success mb-3 w-100">Add Enfant</a>
+    </div>
+
+    <!--        Erreurs delete enfant inscrit -->
+    <div th:if="${param.error}" class="row justify-content-center">
+        <div class="col-md-6 offset-md-1 text-center">
+            <p class="text-danger" th:text="${param.error}"></p>
+        </div>
+    </div>
+
+    <!--    Tableau enfants-->
+
+    <div class="table-responsive">
+        <table class="table table-striped table-dark">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Date de naissance</th>
+                <th>Genre</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+
+            <!--        Corps tableau-->
+            <tbody>
+            <tr th:each="enfant:${listEnfant}">
+                <td th:text="${enfant.nom}"></td>
+                <td th:text="${enfant.prenom}"></td>
+                <td th:text="${#temporals.format(enfant.dateNaiss,'dd/MM/yyyy')}"></td>
+                <td th:text="${enfant.sexe}"></td>
+
+                <!--    Boutons actions-->
+                <td>
+                    <div class="d-flex justify-content-center">
+                        <a th:href="@{/showUpdateEnfantForm(id=${enfant.id})}"
+                           class="btn btn-primary flex-grow-1 me-2">Update</a>
+                        <a th:href="@{/deleteEnfant(id=${enfant.id})}" class="btn btn-danger flex-grow-1"
+                           onclick="return delConfirmEnfant()">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Boutons de navigation -->
+    <div class="d-flex justify-content-between align-items-center">
+        <a th:href="@{/}" class="btn btn-secondary">Home</a>
+        <div th:if="${showButtonBack}">
+            <a th:href="@{/enfants}" class="btn btn-secondary">Enfants</a>
+        </div>
+        <a href="#top">
+            <img src="../static/top.png" th:src="@{top.png}" alt="Top of the page" width="50"/>
+        </a>
+    </div>
+</div>
+<script th:src="@{/js/confirmDelete.js}"></script>
+</body>
+</html>

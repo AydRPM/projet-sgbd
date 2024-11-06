@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Inscriptions Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous"/>
+</head>
+<body id="top" class="custom-bg">
+<div class="container my-4 custom-cont">
+    <h1 class="text-center display-1">Inscriptions</h1>
+    <hr/>
+    <form th:action="@{/inscriptions}" method="get" class="row g-3 d-flex justify-content-between">
+
+        <!--            Champs de recherche sur denom-->
+        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 d-flex align-items-center ">
+            <div class="col-4 col-md-2 col-lg-3 ms-lg-1">
+                <label for="denomToSearch" class="form-label me-2 label-nowrap">Stage :</label>
+            </div>
+            <div class="col-8 col-md-9">
+                <input id="denomToSearch" type="text" class="form-control flex-grow-1" name="stageInscrToSearch"/>
+            </div>
+        </div>
+
+        <!--            Champs de recherche sur nom enfant-->
+        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 d-flex align-items-center">
+            <div class="col-4 col-md-3 col-lg-6 col-xl-5">
+                <label for="nomToSearch" class="form-label label-nowrap md-label-margin me-2">Nom enfant :</label>
+            </div>
+            <div class="col-8 col-md-9">
+                <input id="nomToSearch" type="text" class="form-control" name="nomToSearch"/>
+            </div>
+        </div>
+
+        <!--            Champs de recherche sur paye-->
+        <div class="col-12 col-md-6 col-lg-3 offset-lg-1 offset-xl-0 col-xl-3 d-flex align-items-center justify-content-center justify-content-xl-end">
+            <label class="me-3">Payé :</label>
+            <input class="me-3" type="radio" id="payeOui" name="isPaye" value="true">
+            <label class="me-3" for="payeOui">Oui</label>
+            <input class="me-3" type="radio" id="payeNon" name="isPaye" value="false">
+            <label class="me-2" for="payeNon">Non</label>
+        </div>
+
+        <!--            Soumission recherche-->
+        <div class="col-sm-12 col-md-6 col-lg-2 col-xl-3">
+            <button type="submit" class="btn btn-secondary w-100 mt-md-0">Chercher</button>
+        </div>
+    </form>
+
+    <!-- Boutons de navigation -->
+    <div class="col-12 mt-3">
+        <a th:href="@{/showNewInscriptionForm}" class="btn btn-lg btn-success mb-3 w-100">Add Inscription</a>
+    </div>
+    <div th:if="${param.error}" class="row justify-content-center">
+        <div class="col-md-6 offset-md-1 text-center">
+            <p class="text-danger" th:text="${param.error}"></p>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+
+        <!--    Tableau inscriptions-->
+        <table class="table table-striped table-dark">
+            <thead>
+            <tr>
+                <th>Stage</th>
+                <th>Enfant</th>
+                <th>Paye</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+
+            <!--        Corps tableau-->
+            <tbody>
+            <tr th:each="inscription:${listInscription}">
+                <td th:text="*{inscription.stage.denom}"></td>
+                <td th:text="*{inscription.enfant.id + ' - ' + inscription.enfant.nom + ' - ' + inscription.enfant.prenom}"></td>
+                <td>
+                    <span th:if="*{inscription.paye}">Oui</span>
+                    <span th:unless="*{inscription.paye}">Non</span>
+                </td>
+
+                <!--            Boutons actions-->
+                <td>
+                    <div class="d-flex justify-content-center">
+                        <a th:href="@{/showUpdateInscriptionForm(id=*{inscription.id})}"
+                           class="btn btn-primary flex-grow-1 me-2">Update</a>
+                        <a th:href="@{/deleteInscription(id=*{inscription.id})}"
+                           class="btn btn-danger flex-grow-1">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--    Boutons de navigation-->
+    <div class="d-flex justify-content-between align-items-center">
+        <a th:href="@{/}" class="btn btn-secondary">Home</a>
+        <div th:if="${showButtonBack}">
+            <a th:href="@{/inscriptions}" class="btn btn-secondary">Inscriptions</a>
+        </div>
+        <a href="#top">
+            <img src="../static/top.png" th:src="@{top.png}" alt="Top of the page" width="50"/>
+        </a>
+    </div>
+</div>
+</body>
+</html>

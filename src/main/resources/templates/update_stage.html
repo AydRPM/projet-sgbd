@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Stage Update</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous"/>
+</head>
+<body class="custom-bg">
+<div class="container custom-cont my-4">
+    <h1 class="text-center display-1">Update Stage</h1>
+    <hr/>
+    <div class="row justify-content-center">
+        <div>
+            <form action="#" th:action="@{/saveUpdateStage}" th:object="${stage}" method="POST">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-12 col-md-6">
+                        <div class="row mb-2">
+
+                            <!-- Erreurs -->
+                            <div class="justify-content-center text-center">
+                                <div th:if="${error}" class="row justify-content-center">
+                                    <p class="text-danger text-center" th:text="${error}"></p>
+                                </div>
+                            </div>
+
+                            <!-- Champ Denomination -->
+                            <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                                <label for="denom" class="form-label">Denomination :</label>
+                            </div>
+                            <div class="col-lg-7 my-lg-2">
+                                <input id="denom" type="text" th:field="*{denom}" placeholder="Denomination du stage"
+                                       class="form-control"/>
+                                <span class="text-danger" th:errors="*{denom}"></span>
+                            </div>
+
+                            <!-- Champ Prix -->
+                            <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                                <label for="prix" class="form-label">Prix :</label>
+                            </div>
+                            <div class="col-lg-7 my-lg-2">
+                                <input id="prix" type="number" th:field="*{prix}" placeholder="Prix du stage"
+                                       class="form-control"/>
+                                <span class="text-danger" th:errors="*{prix}"></span>
+                            </div>
+
+                            <!-- Champ Age minimum -->
+                            <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                                <label for="ageMin" class="form-label">Age minimum :</label>
+                            </div>
+                            <div class="col-lg-7 my-lg-2">
+                                <input id="ageMin" type="number" th:field="*{ageMin}" placeholder="Age minimum"
+                                       class="form-control"/>
+                                <span class="text-danger" th:errors="*{ageMin}"></span>
+                                <span class="text-danger" th:errors="*{validAgeRange}"></span>
+                            </div>
+
+                            <!-- Champ Age maximum -->
+                            <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                                <label for="ageMax" class="form-label">Age maximum :</label>
+                            </div>
+                            <div class="col-lg-7 my-lg-2">
+                                <input id="ageMax" type="number" th:field="*{ageMax}" placeholder="Age maximum"
+                                       class="form-control"/>
+                                <span class="text-danger" th:errors="*{ageMax}"></span>
+                            </div>
+
+                            <!-- Champ Date de debut -->
+                            <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                                <label for="dateDeb" class="form-label">Date de debut :</label>
+                            </div>
+                            <div class="col-lg-7 my-lg-2">
+                                <input id="dateDeb" type="date" th:field="*{dateDeb}" class="form-control"/>
+                                <span class="text-danger" th:errors="*{dateDeb}"></span>
+                                <span class="text-danger" th:errors="*{validDateRange}"></span>
+                            </div>
+
+                            <!-- Champ Date de fin -->
+                            <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                                <label for="dateFin" class="form-label">Date de fin :</label>
+                            </div>
+                            <div class="col-lg-7 my-lg-2 mb-2">
+                                <input id="dateFin" type="date" th:field="*{dateFin}" class="form-control"/>
+                                <span class="text-danger" th:errors="*{dateFin}"></span>
+                            </div>
+
+                            <!-- Bouton de sauvegarde -->
+                            <div class="col-lg-10 offset-lg-1 col-lg-10 my-2 mb-0">
+                                <button type="submit" class="btn btn-success w-100">Update Stage</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Boutons de navigation -->
+            <hr/>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5 mb-4 d-flex justify-content-between">
+                    <a th:href="@{/}" class="btn btn-secondary me-4 flex-grow-1 w-100">Home</a>
+                    <a th:href="@{/stages}" class="btn btn-secondary flex-grow-1 w-100">Stages</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

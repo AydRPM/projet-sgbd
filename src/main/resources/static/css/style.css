@@ -1,0 +1,28 @@
+div, th, td{
+    font-family: Avenir, sans-serif;
+    color: #cdfdce;
+}
+th{
+    vertical-align : middle;
+}
+.custom-bg {
+    background-color: #cdfdce;
+}
+
+.custom-cont {
+    background-color: #121212;
+    border-radius: 6px;
+}
+
+.table-responsive{
+    border-radius : 6px;
+}
+.label-nowrap {
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) and (max-width: 991px) { /* Point d'arrêt md et lg */
+    .md-label-margin {
+        margin-left: -22px; /* Ajustez cette valeur selon vos besoins */
+    }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Inscription</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous"/>
+</head>
+<body class="custom-bg">
+<div class="container custom-cont my-4">
+    <h1 class="text-center display-1">New Inscription</h1>
+    <hr/>
+    <div class="row justify-content-center">
+        <form action="#" th:action="@{/saveNewInscription}" th:object="${inscription}" method="POST">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-12 col-md-6">
+                    <div class="row mb-2">
+
+                        <!-- Erreurs doublons -->
+                        <div th:if="${error}" class="row justify-content-center">
+                            <p class="text-danger text-center" th:text="${error}"></p>
+                        </div>
+
+                        <!-- Champ Stage -->
+                        <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                            <label for="stage" class="form-label">Stage :</label>
+                        </div>
+                        <div class="col-lg-7 my-lg-2">
+                            <select id="stage" th:field="*{stage}" class="form-control">
+                                <option value="">Selectionner le stage</option>
+                                <option th:each="stage : ${listStage}" th:value="${stage.id}"
+                                        th:text="${stage.denom}"></option>
+                            </select>
+                            <span class="text-danger" th:errors="*{stage}">Le stage ne peut pas etre vide</span>
+                        </div>
+
+                        <!-- Champ Enfant -->
+                        <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                            <label for="enfant" class="form-label">Enfant :</label>
+                        </div>
+                        <div class="col-lg-7 my-lg-2">
+                            <select id="enfant" th:field="*{enfant}" class="form-control">
+                                <option value="">Selectionner l'enfant</option>
+                                <option th:each="enfant : ${listEnfant}" th:value="${enfant.id}"
+                                        th:text="${enfant.id + ' - ' + enfant.nom + ' ' + enfant.prenom}"></option>
+                            </select>
+                            <span class="text-danger" th:errors="*{enfant}">L'enfant ne peut pas etre vide</span>
+                        </div>
+
+                        <!-- Champ Paye -->
+                        <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                            <label for="paye" class="form-label">Payé :</label>
+                        </div>
+                        <div class="col-lg-7 my-lg-2 mb-2">
+                            <select id="paye" th:field="*{paye}" class="form-control">
+                                <option th:value="false">Non</option>
+                                <option th:value="true">Oui</option>
+                            </select>
+                        </div>
+
+                        <!-- Bouton de sauvegarde -->
+                        <div class="col-lg-10 offset-lg-1 my-2 mb-0">
+                            <button type="submit" class="btn btn-success w-100">Save Inscription</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Boutons de navigation -->
+        <hr/>
+        <div class="col-12 col-md-6 col-lg-5 mb-4 d-flex justify-content-between justify-content-md-center">
+            <a th:href="@{/}" class="btn btn-secondary me-4 flex-grow-1 w-100">Home</a>
+            <a th:href="@{/inscriptions}" class="btn btn-secondary flex-grow-1 w-100">Inscriptions</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

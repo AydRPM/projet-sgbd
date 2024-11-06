@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Enfant</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous"/>
+</head>
+<body class="custom-bg">
+<div class="container custom-cont my-4">
+    <h1 class="text-center display-1">New Enfant</h1>
+    <hr/>
+    <div>
+        <form action="#" th:action="@{/saveNewEnfant}" th:object="${enfant}" method="POST">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-12 col-md-6">
+                    <div class="row mb-2">
+
+                        <!-- Erreurs doublons -->
+                        <div th:if="${error}" class="row justify-content-center">
+                            <p class="text-danger text-center" th:text="${error}"></p>
+                        </div>
+
+                        <!-- Champ Nom -->
+                        <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                            <label for="nom" class="form-label">Nom :</label>
+                        </div>
+                        <div class="col-lg-7 my-lg-2">
+                            <input id="nom" type="text" th:field="*{nom}" placeholder="Nom" class="form-control"/>
+                            <span class="text-danger" th:errors="*{nom}"></span>
+                        </div>
+
+                        <!-- Champ Prenom -->
+                        <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                            <label for="prenom" class="form-label">Prenom :</label>
+                        </div>
+                        <div class="col-lg-7 my-lg-2">
+                            <input id="prenom" type="text" th:field="*{prenom}" placeholder="Prenom"
+                                   class="form-control"/>
+                            <span class="text-danger" th:errors="*{prenom}"></span>
+                        </div>
+
+                        <!-- Champ Date de naissance -->
+                        <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                            <label for="dateNaiss" class="form-label label-nowrap">Date de naissance :</label>
+                        </div>
+                        <div class="col-lg-7 my-lg-2">
+                            <input id="dateNaiss" type="date" th:field="*{dateNaiss}" class="form-control"/>
+                            <span class="text-danger" th:errors="*{dateNaiss}"></span>
+                        </div>
+
+                        <!-- Champ Genre -->
+                        <div class="col-lg-4 mt-2 my-lg-2 d-flex justify-content-lg-end">
+                            <label for="genre" class="form-label">Genre :</label>
+                        </div>
+                        <div class="col-lg-7 my-lg-2 mb-2 ">
+                            <select id="genre" th:field="*{sexe}" class="form-control">
+                                <option th:value="F">Femme</option>
+                                <option th:value="M">Homme</option>
+                            </select>
+                            <span class="text-danger" th:errors="*{sexe}"></span>
+                        </div>
+
+                        <!-- Bouton de sauvegarde -->
+                        <div class="col-lg-10 offset-lg-1 my-2 mb-0">
+                            <button type="submit" class="btn btn-success w-100">Save Enfant</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Boutons de navigation -->
+        <hr/>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5 mb-4 d-flex justify-content-between">
+                <a th:href="@{/}" class="btn btn-secondary me-4 flex-grow-1 w-100">Home</a>
+                <a th:href="@{/enfants}" class="btn btn-secondary flex-grow-1 w-100">Enfants</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
